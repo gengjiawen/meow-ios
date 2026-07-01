@@ -12,8 +12,7 @@
 /* Tab bar */
 "tabs.subscriptions" = "Subscriptions";
 "tabs.proxyGroups" = "Proxy Groups";
-"tabs.traffic" = "Traffic";
-"tabs.logs" = "Logs";
+"tabs.utility" = "Utility";
 "tabs.settings" = "Settings";
 
 
@@ -94,6 +93,21 @@
 "connections.toolbar.closeAll" = "Close All";
 "connections.swipe.close" = "Close";
 "connections.nav.titleFormat %lld" = "Connections (%lld)";
+
+
+/* Utility hub */
+"utility.nav.title" = "Utility";
+"utility.nav.traffic" = "Traffic";
+"utility.nav.logs" = "Logs";
+"utility.nav.dns" = "DNS";
+
+
+/* DNS */
+"dns.empty.title" = "No DNS results";
+"dns.empty.description" = "Cached lookups appear when the engine resolves domains.";
+"dns.nav.titleFormat %lld" = "DNS (%lld)";
+"dns.row.unknownUpstream" = "Unknown";
+"dns.row.ttl %lld" = "TTL %lld s";
 
 
 /* Rules */
@@ -250,6 +264,11 @@
 "a11y.connections.row.download %@" = "Downloaded %@";
 "a11y.connections.row.label %@ %@ %@ %@ %@" = "%@, %@, uploaded %@, downloaded %@, via %@";
 "a11y.connections.errorBanner %@" = "Warning: %@";
+
+
+/* Accessibility — DNS */
+"a11y.dns.row.label %@ %@ %@ %lld" = "%@, %@, upstream %@, TTL %lld seconds";
+"a11y.dns.errorBanner %@" = "Warning: %@";
 
 
 /* Accessibility — Rule editor (single-rule sheet) */

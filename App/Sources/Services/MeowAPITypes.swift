@@ -96,3 +96,20 @@ struct LogEntry: Decodable {
         return try? JSONDecoder().decode(LogEntry.self, from: data)
     }
 }
+
+/// Cached DNS lookup surfaced by `GET /dns/results` (meow-api routes.rs).
+struct DnsResult: Decodable, Identifiable {
+    var id: String {
+        name
+    }
+
+    let name: String
+    let ips: [String]
+    let fromServer: String?
+    let ttl: UInt64
+
+    enum CodingKeys: String, CodingKey {
+        case name, ips, ttl
+        case fromServer = "from_server"
+    }
+}

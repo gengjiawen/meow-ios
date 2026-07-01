@@ -27,12 +27,8 @@ struct MeowApp {
         app.tabBars.buttons["Proxy Groups"]
     }
 
-    var trafficTab: XCUIElement {
-        app.tabBars.buttons["Traffic"]
-    }
-
-    var logsTab: XCUIElement {
-        app.tabBars.buttons["Logs"]
+    var utilityTab: XCUIElement {
+        app.tabBars.buttons["Utility"]
     }
 
     var settingsTab: XCUIElement {

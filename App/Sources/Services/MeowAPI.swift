@@ -199,6 +199,31 @@ final class MeowAPI: @unchecked Sendable {
         return try await get("/providers/proxies")
     }
 
+    /// Cached DNS results for the panel UI. Optional `search` filters by
+    /// domain substring; `limit` is capped server-side at 1024.
+    func getDnsResults(search: String? = nil, limit: Int = 256) async throws -> [DnsResult] {
+        if Self.usesMockTransport { return Self.mockDnsResults(search: search) }
+        var endpoint = baseURL.appending(path: "/dns/results")
+        var items: [URLQueryItem] = [.init(name: "limit", value: String(limit))]
+        if let search, !search.isEmpty {
+            items.append(.init(name: "search", value: search))
+        }
+        guard var comps = URLComponents(url: endpoint, resolvingAgainstBaseURL: false) else {
+            throw URLBuildError.invalidComponents(endpoint: endpoint)
+        }
+        comps.queryItems = items
+        guard let url = comps.url else {
+            throw URLBuildError.invalidComponents(endpoint: endpoint)
+        }
+        #if DEBUG
+            log.info("HTTP GET \(url.absoluteString, privacy: .public)")
+        #endif
+        let (data, resp) = try await session.data(for: request(for: url))
+        logResponse(resp, body: data, url: url)
+        try throwIfHTTPError(resp)
+        return try JSONDecoder().decode([DnsResult].self, from: data)
+    }
+
     /// Triggers meow's bulk health-check for every proxy in a provider
     /// (`GET /providers/proxies/{name}/healthcheck`). The endpoint returns
     /// 204 on success; fresh delays are surfaced on the next `getProviders()`.
@@ -494,6 +519,17 @@ private extension MeowAPI {
                 proxies: providerProxies,
             ),
         ])
+    }
+
+    static func mockDnsResults(search: String?) -> [DnsResult] {
+        let all: [DnsResult] = [
+            .init(name: "www.gstatic.com", ips: ["142.250.72.14"], fromServer: "119.29.29.29", ttl: 298),
+            .init(name: "github.com", ips: ["140.82.112.4"], fromServer: "223.5.5.5", ttl: 412),
+            .init(name: "api.github.com", ips: ["140.82.112.5"], fromServer: "223.5.5.5", ttl: 389),
+            .init(name: "apple.com", ips: ["17.253.144.10"], fromServer: "system", ttl: 600),
+        ]
+        guard let search, !search.isEmpty else { return all }
+        return all.filter { $0.name.localizedCaseInsensitiveContains(search) }
     }
 
     static func mockLogStream(level: String) -> AsyncThrowingStream<LogEntry, Error> {

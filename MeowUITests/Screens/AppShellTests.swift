@@ -17,7 +17,7 @@ final class AppShellTests: XCTestCase {
         meow.proxyGroupsTab.tap()
         XCTAssertTrue(meow.home.vpnToggle.exists)
 
-        meow.trafficTab.tap()
+        meow.utilityTab.tap()
         XCTAssertTrue(meow.home.vpnToggle.exists)
     }
 

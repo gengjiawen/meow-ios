@@ -18,8 +18,7 @@
 /* Tab bar */
 "tabs.subscriptions" = "订阅";
 "tabs.proxyGroups" = "代理组";
-"tabs.traffic" = "流量";
-"tabs.logs" = "日志";
+"tabs.utility" = "工具";
 "tabs.settings" = "设置";
 
 
@@ -100,6 +99,21 @@
 "connections.toolbar.closeAll" = "全部关闭";
 "connections.swipe.close" = "关闭";
 "connections.nav.titleFormat %lld" = "连接 (%lld)";
+
+
+/* Utility hub */
+"utility.nav.title" = "工具";
+"utility.nav.traffic" = "流量";
+"utility.nav.logs" = "日志";
+"utility.nav.dns" = "DNS";
+
+
+/* DNS */
+"dns.empty.title" = "暂无 DNS 结果";
+"dns.empty.description" = "引擎解析域名后，缓存记录会显示在此处。";
+"dns.nav.titleFormat %lld" = "DNS (%lld)";
+"dns.row.unknownUpstream" = "未知";
+"dns.row.ttl %lld" = "TTL %lld 秒";
 
 
 /* Rules */
@@ -256,6 +270,11 @@
 "a11y.connections.row.download %@" = "已下载 %@";
 "a11y.connections.row.label %@ %@ %@ %@ %@" = "%@，%@，已上传 %@，已下载 %@，经由 %@";
 "a11y.connections.errorBanner %@" = "警告：%@";
+
+
+/* Accessibility — DNS */
+"a11y.dns.row.label %@ %@ %@ %lld" = "%@，%@，上游 %@，TTL %lld 秒";
+"a11y.dns.errorBanner %@" = "警告：%@";
 
 
 /* Accessibility — Rule editor (single-rule sheet) */

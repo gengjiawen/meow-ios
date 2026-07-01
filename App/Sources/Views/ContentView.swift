@@ -4,7 +4,7 @@ import SwiftUI
 /// argument used by the App Store screenshot capture (honored only in UI-test
 /// builds — see `initialTab`).
 enum ContentTab: String {
-    case subscriptions, proxyGroups, traffic, logs, settings
+    case subscriptions, proxyGroups, utility, settings
 }
 
 struct ContentView: View {
@@ -27,14 +27,10 @@ struct ContentView: View {
                     .tabItem { Label("tabs.proxyGroups", systemImage: "rectangle.stack.fill") }
                     .accessibilityIdentifier("Proxy Groups")
                     .tag(ContentTab.proxyGroups)
-                NavigationStack { TrafficView() }
-                    .tabItem { Label("tabs.traffic", systemImage: "chart.bar.fill") }
-                    .accessibilityIdentifier("Traffic")
-                    .tag(ContentTab.traffic)
-                NavigationStack { LogsView() }
-                    .tabItem { Label("tabs.logs", systemImage: "list.bullet.rectangle.fill") }
-                    .accessibilityIdentifier("Logs")
-                    .tag(ContentTab.logs)
+                NavigationStack { UtilityView() }
+                    .tabItem { Label("tabs.utility", systemImage: "wrench.and.screwdriver.fill") }
+                    .accessibilityIdentifier("Utility")
+                    .tag(ContentTab.utility)
                 NavigationStack { SettingsView() }
                     .tabItem { Label("tabs.settings", systemImage: "gearshape.fill") }
                     .accessibilityIdentifier("Settings")
@@ -112,5 +108,7 @@ private func initialTab() -> ContentTab {
     // Historical screenshot scripts used `home`; Subscriptions is now the
     // home tab surface, so keep old invocations useful.
     if rawTab == "home" { return .subscriptions }
+    // Traffic/Logs moved under Utility; keep old screenshot tab names working.
+    if rawTab == "traffic" || rawTab == "logs" || rawTab == "dns" { return .utility }
     return ContentTab(rawValue: rawTab) ?? .subscriptions
 }
