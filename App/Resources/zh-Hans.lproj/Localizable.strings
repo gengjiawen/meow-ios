@@ -180,6 +180,9 @@
 "settings.logLevel.warning" = "警告";
 "settings.logLevel.error" = "错误";
 "settings.logLevel.silent" = "静默";
+"settings.picker.appIcon" = "应用图标";
+"settings.appIcon.primary" = "经典";
+"settings.appIcon.leap" = "跳跃";
 "settings.section.diagnostics" = "诊断";
 "settings.label.diagnostics" = "诊断";
 "settings.label.exportLogs" = "导出日志";
@@ -298,6 +301,7 @@
 "a11y.settings.onDemand.hint" = "在需要网络连接时自动启动隧道。";
 "a11y.settings.blockHTTP3.hint" = "通过丢弃发往 443 端口的 UDP 流量及 SVCB/HTTPS DNS 记录来屏蔽 HTTP/3 和 QUIC，强制连接使用 TCP 和 HTTP/2。";
 "a11y.settings.ipv6.hint" = "通过解析 AAAA 记录并将 IPv6 流量路由经过隧道来启用 IPv6。关闭时隧道仅使用 IPv4，AAAA 查询将被丢弃。";
+"a11y.settings.appIcon.hint" = "更改主屏幕上显示的应用图标。";
 "a11y.settings.exportLogs.hint" = "将最近一小时的应用日志保存为文件。";
 "a11y.settings.exportLogs.inProgress" = "正在导出";
 "a11y.settings.memory.unavailable" = "不可用";
