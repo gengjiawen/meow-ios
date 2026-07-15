@@ -220,7 +220,9 @@ final class VpnManager {
         // #60 fixed the cold-connect readiness race; this fires the
         // callback for the relaunch-into-connected edge too.
         applyConnectionStatus(mgr.connection.status)
-        if let statusObserver { NotificationCenter.default.removeObserver(statusObserver) }
+        if let statusObserver {
+            NotificationCenter.default.removeObserver(statusObserver)
+        }
         statusObserver = NotificationCenter.default.addObserver(
             forName: .NEVPNStatusDidChange,
             object: mgr.connection,

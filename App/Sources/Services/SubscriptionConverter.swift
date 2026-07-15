@@ -37,6 +37,8 @@ struct ClashYAMLConverter: SubscriptionConverter {
 }
 
 private func lastCoreError() -> String {
-    if let cstr = meow_core_last_error() { return String(cString: cstr) }
+    if let cstr = meow_core_last_error() {
+        return String(cString: cstr)
+    }
     return "unknown error"
 }

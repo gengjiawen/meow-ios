@@ -279,7 +279,9 @@ struct SubscriptionsView: View {
     /// normalize step, so widening the accept list here is safe.
     private func yamlContentTypes() -> [UTType] {
         var types: [UTType] = [.yaml, .plainText, .text, .data]
-        if let yml = UTType(filenameExtension: "yml") { types.append(yml) }
+        if let yml = UTType(filenameExtension: "yml") {
+            types.append(yml)
+        }
         return types
     }
 
@@ -308,7 +310,11 @@ struct SubscriptionsView: View {
     /// String and let the scope expire.
     private func readSecurityScoped(_ url: URL) async throws -> String {
         let accessed = url.startAccessingSecurityScopedResource()
-        defer { if accessed { url.stopAccessingSecurityScopedResource() } }
+        defer {
+            if accessed {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
         let data = try Data(contentsOf: url)
         guard let yaml = String(data: data, encoding: .utf8) else {
             throw NSError(

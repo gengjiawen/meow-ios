@@ -159,8 +159,12 @@ struct GlobalVpnSwitchBar: View {
     }
 
     private var toggleDisabled: Bool {
-        if isInFlight { return true }
-        if isConnected { return false }
+        if isInFlight {
+            return true
+        }
+        if isConnected {
+            return false
+        }
         return selected.first == nil
     }
 }

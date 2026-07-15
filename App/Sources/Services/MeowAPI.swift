@@ -60,6 +60,9 @@ private final class MeowAPICredentials: @unchecked Sendable {
 /// are issued from the main app process; iOS routes loopback traffic correctly
 /// even when the tunnel is active.
 @Observable
+// Crossed the 300-line warning when SwiftFormat 0.62 wrapped its single-line
+// `if` bodies onto multiple lines; the type itself didn't grow.
+// swiftlint:disable:next type_body_length
 final class MeowAPI: @unchecked Sendable {
     private let credentials: MeowAPICredentials
     private let session: URLSession
@@ -121,12 +124,16 @@ final class MeowAPI: @unchecked Sendable {
     // MARK: - Endpoints
 
     func getProxies() async throws -> ProxiesResponse {
-        if Self.usesMockTransport { return Self.mockProxies() }
+        if Self.usesMockTransport {
+            return Self.mockProxies()
+        }
         return try await get("/proxies")
     }
 
     func getConfigs() async throws -> ConfigsResponse {
-        if Self.usesMockTransport { return .init(mode: "rule") }
+        if Self.usesMockTransport {
+            return .init(mode: "rule")
+        }
         return try await get("/configs")
     }
 
@@ -134,7 +141,9 @@ final class MeowAPI: @unchecked Sendable {
     /// wire values: `rule`, `global`, `direct`. Persists across the engine
     /// lifetime only — engine restarts reset to the YAML default.
     func setMode(_ mode: String) async throws {
-        if Self.usesMockTransport { return }
+        if Self.usesMockTransport {
+            return
+        }
         try await patch("/configs", body: ["mode": mode])
     }
 
@@ -155,7 +164,9 @@ final class MeowAPI: @unchecked Sendable {
     /// a clearer error). Set `MeowIPCDisabled = YES` in UserDefaults
     /// to force the HTTP path for debugging.
     func selectProxy(group: String, name: String) async throws {
-        if Self.usesMockTransport { return }
+        if Self.usesMockTransport {
+            return
+        }
         let ipcDisabled = UserDefaults.standard.bool(forKey: "MeowIPCDisabled")
         if !ipcDisabled, let session = await Self.tunnelSession() {
             try await selectProxyViaIPC(session: session, group: group, name: name)
@@ -272,32 +283,44 @@ final class MeowAPI: @unchecked Sendable {
     }
 
     func getConnections() async throws -> ConnectionsResponse {
-        if Self.usesMockTransport { return Self.mockConnections() }
+        if Self.usesMockTransport {
+            return Self.mockConnections()
+        }
         return try await get("/connections")
     }
 
     func closeConnection(id: String) async throws {
-        if Self.usesMockTransport { return }
+        if Self.usesMockTransport {
+            return
+        }
         try await delete("/connections/\(id)")
     }
 
     func closeAllConnections() async throws {
-        if Self.usesMockTransport { return }
+        if Self.usesMockTransport {
+            return
+        }
         try await delete("/connections")
     }
 
     func getRules() async throws -> RulesResponse {
-        if Self.usesMockTransport { return Self.mockRules() }
+        if Self.usesMockTransport {
+            return Self.mockRules()
+        }
         return try await get("/rules")
     }
 
     func getProviders() async throws -> ProvidersResponse {
-        if Self.usesMockTransport { return Self.mockProviders() }
+        if Self.usesMockTransport {
+            return Self.mockProviders()
+        }
         return try await get("/providers/proxies")
     }
 
     func getDnsResults(search: String? = nil, limit: Int = 256) async throws -> [DnsResult] {
-        if Self.usesMockTransport { return Self.mockDnsResults(search: search) }
+        if Self.usesMockTransport {
+            return Self.mockDnsResults(search: search)
+        }
         var queryItems = [URLQueryItem(name: "limit", value: String(limit))]
         if let search, !search.isEmpty {
             queryItems.append(URLQueryItem(name: "search", value: search))
@@ -309,7 +332,9 @@ final class MeowAPI: @unchecked Sendable {
     /// (`GET /providers/proxies/{name}/healthcheck`). The endpoint returns
     /// 204 on success; fresh delays are surfaced on the next `getProviders()`.
     func healthCheckProvider(name: String) async throws {
-        if Self.usesMockTransport { return }
+        if Self.usesMockTransport {
+            return
+        }
         let url = credentials.baseURL.appending(path: "/providers/proxies/\(name.urlEscaped)/healthcheck")
         #if DEBUG
             // DIAGNOSTIC: remove once Logs/Connections views are stable in v1.0.
@@ -367,7 +392,9 @@ final class MeowAPI: @unchecked Sendable {
                         }
                     } catch {
                         ws.cancel(with: .goingAway, reason: nil)
-                        if Task.isCancelled { break }
+                        if Task.isCancelled {
+                            break
+                        }
                         let desc = String(describing: error)
                         log.warning("WS /logs reconnecting in \(backoff)s: \(desc, privacy: .public)")
                         try? await Task.sleep(for: .seconds(backoff))

@@ -129,8 +129,12 @@ struct RuleEditorSheet: View {
     }
 
     private var canSave: Bool {
-        if proxy.trimmingCharacters(in: .whitespaces).isEmpty { return false }
-        if type.takesPayload, payload.trimmingCharacters(in: .whitespaces).isEmpty { return false }
+        if proxy.trimmingCharacters(in: .whitespaces).isEmpty {
+            return false
+        }
+        if type.takesPayload, payload.trimmingCharacters(in: .whitespaces).isEmpty {
+            return false
+        }
         return true
     }
 

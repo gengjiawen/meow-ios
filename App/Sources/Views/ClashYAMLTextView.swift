@@ -150,7 +150,9 @@ final class GutteredTextView: UIView {
                     range: NSRange(location: charIdx, length: lineEnd - charIdx),
                 )
             }
-            if nlRange.location == NSNotFound { break }
+            if nlRange.location == NSNotFound {
+                break
+            }
             charIdx = NSMaxRange(nlRange)
             lineNumber += 1
         }
@@ -205,7 +207,9 @@ final class GutteredTextView: UIView {
                 of: "\n",
                 range: NSRange(location: charIdx, length: textLength - charIdx),
             )
-            if nlRange.location == NSNotFound { break }
+            if nlRange.location == NSNotFound {
+                break
+            }
             charIdx = NSMaxRange(nlRange)
             lineNumber += 1
         }

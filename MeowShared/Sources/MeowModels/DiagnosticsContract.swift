@@ -50,7 +50,9 @@ public enum DiagnosticsLabelParser {
 
         for rawLine in text.split(separator: "\n", omittingEmptySubsequences: true) {
             let line = rawLine.trimmingCharacters(in: .whitespaces)
-            if line.isEmpty { continue }
+            if line.isEmpty {
+                continue
+            }
 
             guard let colon = line.range(of: ": ") else {
                 throw ParseError.malformed(line: line)
@@ -76,7 +78,9 @@ public enum DiagnosticsLabelParser {
         }
 
         let missing = DiagnosticsCheck.allCases.filter { out[$0] == nil }
-        if !missing.isEmpty { throw ParseError.missingKeys(missing) }
+        if !missing.isEmpty {
+            throw ParseError.missingKeys(missing)
+        }
         return out
     }
 

@@ -261,8 +261,12 @@ enum SubscriptionFormat {
 
 enum SubscriptionParser {
     static func detectFormat(_ data: Data) -> SubscriptionFormat? {
-        if looksLikeClashYAML(data) { return .clashYaml }
-        if looksLikeV2RayN(data) { return .v2rayN }
+        if looksLikeClashYAML(data) {
+            return .clashYaml
+        }
+        if looksLikeV2RayN(data) {
+            return .v2rayN
+        }
         return nil
     }
 
@@ -325,6 +329,8 @@ enum YamlPatcher {
 }
 
 private func lastCoreError() -> String {
-    if let cstr = meow_core_last_error() { return String(cString: cstr) }
+    if let cstr = meow_core_last_error() {
+        return String(cString: cstr)
+    }
     return "unknown error"
 }

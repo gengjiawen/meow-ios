@@ -131,8 +131,12 @@ private func initialTab() -> ContentTab {
     let rawTab = argv[i + 1]
     // Historical screenshot scripts used `home`; Subscriptions is now the
     // home tab surface, so keep old invocations useful.
-    if rawTab == "home" { return .subscriptions }
+    if rawTab == "home" {
+        return .subscriptions
+    }
     // Traffic/Logs moved under Utility; keep old screenshot tab names working.
-    if rawTab == "traffic" || rawTab == "logs" || rawTab == "dns" { return .utility }
+    if rawTab == "traffic" || rawTab == "logs" || rawTab == "dns" {
+        return .utility
+    }
     return ContentTab(rawValue: rawTab) ?? .subscriptions
 }

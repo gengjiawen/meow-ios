@@ -192,30 +192,48 @@ struct AddShadowsocksSheet: View {
         let sniValue = sni.trimmingCharacters(in: .whitespaces)
         opts.append(.init("sni", sniValue.isEmpty ? host : sniValue))
         let pathValue = path.trimmingCharacters(in: .whitespaces)
-        if !pathValue.isEmpty { opts.append(.init("path", pathValue)) }
+        if !pathValue.isEmpty {
+            opts.append(.init("path", pathValue))
+        }
         let echValue = echConfig.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !echValue.isEmpty { opts.append(.init("ech_config", echValue)) }
+        if !echValue.isEmpty {
+            opts.append(.init("ech_config", echValue))
+        }
         let fingerprintValue = fingerprint.trimmingCharacters(in: .whitespaces)
-        if !fingerprintValue.isEmpty { opts.append(.init("fingerprint", fingerprintValue)) }
-        if fastOpen { opts.append(.init("fast_open", "true")) }
+        if !fingerprintValue.isEmpty {
+            opts.append(.init("fingerprint", fingerprintValue))
+        }
+        if fastOpen {
+            opts.append(.init("fast_open", "true"))
+        }
         return opts
     }
 
     private func obfsOpts() -> [ShadowsocksServer.PluginOption] {
         var opts: [ShadowsocksServer.PluginOption] = [.init("mode", obfsMode)]
         let hostValue = obfsHost.trimmingCharacters(in: .whitespaces)
-        if !hostValue.isEmpty { opts.append(.init("host", hostValue)) }
+        if !hostValue.isEmpty {
+            opts.append(.init("host", hostValue))
+        }
         return opts
     }
 
     private func v2rayOpts() -> [ShadowsocksServer.PluginOption] {
         var opts: [ShadowsocksServer.PluginOption] = [.init("mode", "websocket")]
-        if v2rayTLS { opts.append(.init("tls", "true")) }
+        if v2rayTLS {
+            opts.append(.init("tls", "true"))
+        }
         let hostValue = v2rayHost.trimmingCharacters(in: .whitespaces)
-        if !hostValue.isEmpty { opts.append(.init("host", hostValue)) }
+        if !hostValue.isEmpty {
+            opts.append(.init("host", hostValue))
+        }
         let pathValue = v2rayPath.trimmingCharacters(in: .whitespaces)
-        if !pathValue.isEmpty { opts.append(.init("path", pathValue)) }
-        if v2rayMux { opts.append(.init("mux", "true")) }
+        if !pathValue.isEmpty {
+            opts.append(.init("path", pathValue))
+        }
+        if v2rayMux {
+            opts.append(.init("mux", "true"))
+        }
         return opts
     }
 
@@ -310,7 +328,9 @@ extension AddShadowsocksSheet {
             }
             .accessibilityIdentifier("ssAdd.pluginPicker")
             .onChange(of: pluginChoice) { _, choice in
-                if choice != .none { passthroughPlugin = nil }
+                if choice != .none {
+                    passthroughPlugin = nil
+                }
             }
             switch pluginChoice {
             case .none:

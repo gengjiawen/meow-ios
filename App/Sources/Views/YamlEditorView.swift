@@ -128,7 +128,9 @@ enum MeowConfigError: LocalizedError {
             localized: "yamlEditor.error.invalid",
             comment: "Fallback message when config validation fails without engine detail",
         )
-        if case let .invalid(msg) = self { return msg.isEmpty ? fallback : msg }
+        if case let .invalid(msg) = self {
+            return msg.isEmpty ? fallback : msg
+        }
         return fallback
     }
 }

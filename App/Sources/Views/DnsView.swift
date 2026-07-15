@@ -103,7 +103,9 @@ struct DnsView: View {
                 errorMessage = nil
             } catch {
                 // A cancelled fetch means the task was superseded; don't flash its error.
-                if Task.isCancelled { break }
+                if Task.isCancelled {
+                    break
+                }
                 errorMessage = error.localizedDescription
             }
             try? await Task.sleep(for: .seconds(2))

@@ -8,7 +8,9 @@ struct MeowApp {
     init(resetState: Bool = true, stubbedRESTBase: String? = nil) {
         app = XCUIApplication()
         app.launchArguments.append("-UITests")
-        if resetState { app.launchArguments.append("-ResetState") }
+        if resetState {
+            app.launchArguments.append("-ResetState")
+        }
         if let base = stubbedRESTBase {
             app.launchArguments.append(contentsOf: ["-StubURL", base])
         }
