@@ -3,10 +3,12 @@ import MeowModels
 import NetworkExtension
 import OSLog
 import SwiftUI
+import UIKit
 import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @State private var preferences: Preferences = .load(from: AppGroup.defaults)
+    @State private var appIcon: AppIcon = .primary
     @State private var memoryMB: Int64?
     @State private var logExportDocument: LogExportDocument?
     @State private var showingLogExporter = false
@@ -52,6 +54,17 @@ struct SettingsView: View {
                     Text("settings.logLevel.silent").tag("silent")
                 }
                 .accessibilityIdentifier("settings.picker.logLevel")
+                // Hidden where the platform can't switch icons (e.g. iPad
+                // apps running on macOS report supportsAlternateIcons=false).
+                if UIApplication.shared.supportsAlternateIcons {
+                    Picker("settings.picker.appIcon", selection: $appIcon) {
+                        ForEach(AppIcon.allCases) { icon in
+                            Text(LocalizedStringKey(icon.titleKey)).tag(icon)
+                        }
+                    }
+                    .accessibilityIdentifier("settings.picker.appIcon")
+                    .accessibilityHint(Text("a11y.settings.appIcon.hint"))
+                }
             } header: {
                 SectionHeader("settings.section.general")
             }
@@ -135,7 +148,13 @@ struct SettingsView: View {
                 // app launch.
                 Task { await vpnManager.refresh() }
             }
-            .task { await pollMemory() }
+            .onChange(of: appIcon) { oldValue, newValue in
+                applyAppIcon(newValue, revertingTo: oldValue)
+            }
+            .task {
+                appIcon = AppIcon(alternateIconName: UIApplication.shared.alternateIconName)
+                await pollMemory()
+            }
             .fileExporter(
                 isPresented: $showingLogExporter,
                 document: logExportDocument,
@@ -155,6 +174,22 @@ struct SettingsView: View {
 
     private func persist() {
         preferences.save(to: AppGroup.defaults)
+    }
+
+    /// Applies the picked Home Screen icon. The system persists the choice
+    /// (`UIApplication.alternateIconName`), so nothing is written to
+    /// `Preferences` — `.task` re-reads the live value on appear. If iOS
+    /// rejects the switch (e.g. Guided Access), the picker snaps back to the
+    /// icon actually installed.
+    private func applyAppIcon(_ icon: AppIcon, revertingTo previous: AppIcon) {
+        guard icon.alternateIconName != UIApplication.shared.alternateIconName else { return }
+        Task {
+            do {
+                try await UIApplication.shared.setAlternateIconName(icon.alternateIconName)
+            } catch {
+                appIcon = previous
+            }
+        }
     }
 
     private func pollMemory() async {

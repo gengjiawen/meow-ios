@@ -61,6 +61,8 @@
 		51B3C9F10FE6A03AFD50A5E6 /* NavRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D0D6120471BD1DBC4ACFB /* NavRow.swift */; };
 		5247368E57963DA43B22D272 /* UDPProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0A80A8CEB2105E171334C /* UDPProtocolTests.swift */; };
 		528DCD00B7A73F10142E0455 /* MeowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF3488443D31DA0A523BC30 /* MeowApp.swift */; };
+		A11C0DE00002A2B3C4D5E602 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C0DE00001A2B3C4D5E601 /* AppIcon.swift */; };
+		A11C0DE00004A2B3C4D5E604 /* AppIconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C0DE00003A2B3C4D5E603 /* AppIconTests.swift */; };
 		53CECD909096DFDB00109EC4 /* DailyTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25A3F873FAAA2334188818B /* DailyTraffic.swift */; };
 		54E371A3BCD0A05882842AC6 /* EditableRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992E16ADDEBA2F4304D4E797 /* EditableRule.swift */; };
 		5539FB5E77561B0464DE86DB /* VpnManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AB2D298F7A38F31686BF15 /* VpnManagerTests.swift */; };
@@ -228,6 +230,8 @@
 		2646E6E7241DEDBA8C6127C6 /* ShadowsocksConfigBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsocksConfigBuilder.swift; sourceTree = "<group>"; };
 		2D7D7768D31382CD90DFEBA6 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		2E2B37B72F11B1B2B1118221 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		A11C0DE00001A2B3C4D5E601 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		A11C0DE00003A2B3C4D5E603 /* AppIconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconTests.swift; sourceTree = "<group>"; };
 		3172561A6CE70D61D7666597 /* ChinaDirectKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaDirectKeywords.swift; sourceTree = "<group>"; };
 		329B260F122D91D5DDB24C44 /* MWIPCListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWIPCListener.m; sourceTree = "<group>"; };
 		332AEAFC0EED0EC4C05576EC /* MeowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeowApp.swift; sourceTree = "<group>"; };
@@ -585,6 +589,7 @@
 		85D14F5D426AD0FD4A71B2E5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A11C0DE00003A2B3C4D5E603 /* AppIconTests.swift */,
 				C840E453765151986763DE2B /* ChinaDirectKeywordsTests.swift */,
 				67B54369F081E1B728712CC9 /* IdentifierSlugTests.swift */,
 				A7002E0BC1FFE0A41FEBE8F6 /* LocalizableParityTests.swift */,
@@ -723,6 +728,7 @@
 		C044A2B7BBD7A3F22C1B39DF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A11C0DE00001A2B3C4D5E601 /* AppIcon.swift */,
 				3172561A6CE70D61D7666597 /* ChinaDirectKeywords.swift */,
 				A25A3F873FAAA2334188818B /* DailyTraffic.swift */,
 				992E16ADDEBA2F4304D4E797 /* EditableRule.swift */,
@@ -1157,6 +1163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11C0DE00004A2B3C4D5E604 /* AppIconTests.swift in Sources */,
 				F3F6C8C58BB119BAA42C632B /* ChinaDirectKeywordsTests.swift in Sources */,
 				A0ACD40A0E0CF4DFABDA8903 /* ConnectionsTests.swift in Sources */,
 				A80A176366D289562219D18D /* DarwinBridgeTests.swift in Sources */,
@@ -1200,6 +1207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09A565179DB1D6C03527E69 /* AddShadowsocksSheet.swift in Sources */,
+				A11C0DE00002A2B3C4D5E602 /* AppIcon.swift in Sources */,
 				DCC6938C0A43984B033BCD68 /* AppIPCBridge.swift in Sources */,
 				ADBD29F9A34A3AF34057D104 /* AppModel.swift in Sources */,
 				B2761759D155051F32B46F2D /* AppModelContainer.swift in Sources */,
@@ -1503,6 +1511,7 @@
 		60EF6A576B1E3B29BF844075 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIconLeap;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
@@ -1541,6 +1550,7 @@
 		8B572C192732B7DDA3D7F478 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIconLeap;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
