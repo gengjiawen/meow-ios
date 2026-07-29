@@ -3,7 +3,7 @@ import UIKit
 
 /// Settings → App Icon. Replaces the former inline `Picker`, which listed the
 /// icons by name only and gave no hint what any of them looked like, with a
-/// pushed list of the artwork itself — one icon per row, no captions.
+/// pushed list of the artwork itself — one icon per row, name alongside.
 ///
 /// The rows render `AppIcon.previewAssetName` imagesets rather than the
 /// `.appiconset` artwork directly: `UIImage(named:)` does not resolve the
@@ -78,10 +78,8 @@ struct AppIconPickerView: View {
     }
 }
 
-/// One artwork row. Nothing is written out — the icon's name reaches VoiceOver
-/// through `.accessibilityLabel`, since there is no visible label to read.
-/// The rounded-rect mask approximates the Home Screen squircle (iOS masks app
-/// icons at ~22% of their width).
+/// One row: the artwork, then its name. The rounded-rect mask approximates
+/// the Home Screen squircle (iOS masks app icons at ~22% of their width).
 private struct AppIconRow: View {
     let icon: AppIcon
     let size: CGFloat
@@ -94,8 +92,9 @@ private struct AppIconRow: View {
 
     var body: some View {
         Button(action: action) {
-            HStack {
+            HStack(spacing: 16) {
                 artwork
+                Text(LocalizedStringKey(icon.titleKey))
                 Spacer()
                 if isSelected {
                     // Shape companion to the accent-colored ring, so the
@@ -109,7 +108,6 @@ private struct AppIconRow: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(Text(LocalizedStringKey(icon.titleKey)))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityHint(Text("a11y.appIconPicker.option.hint"))
         .accessibilityIdentifier("appIconPicker.option.\(icon.rawValue)")
