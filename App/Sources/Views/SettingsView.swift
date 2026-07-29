@@ -8,9 +8,10 @@ import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @State private var preferences: Preferences = .load(from: AppGroup.defaults)
-    /// Seeded from the live `UIApplication.alternateIconName` on appear and
-    /// written by `AppIconPickerView`, which owns applying the change. Kept
-    /// here so the Settings row shows the current icon's name.
+    /// Seeded from the live `UIApplication.alternateIconName` on appear, then
+    /// handed to `AppIconPickerView` as its selection. The picker owns both
+    /// reading the tap and applying the change; this only supplies the
+    /// starting value.
     @State private var appIcon: AppIcon = .primary
     @State private var memoryMB: Int64?
     @State private var logExportDocument: LogExportDocument?
@@ -60,12 +61,8 @@ struct SettingsView: View {
                 // Hidden where the platform can't switch icons (e.g. iPad
                 // apps running on macOS report supportsAlternateIcons=false).
                 if UIApplication.shared.supportsAlternateIcons {
-                    NavigationLink {
+                    NavigationLink("settings.label.appIcon") {
                         AppIconPickerView(selection: $appIcon)
-                    } label: {
-                        LabeledContent("settings.label.appIcon") {
-                            Text(LocalizedStringKey(appIcon.titleKey))
-                        }
                     }
                     .accessibilityIdentifier("settings.nav.appIcon")
                     .accessibilityHint(Text("a11y.settings.appIcon.hint"))
