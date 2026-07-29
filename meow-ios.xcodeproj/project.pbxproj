@@ -44,6 +44,7 @@
 		34358821D3A262F7D08C62D9 /* MeowIPC in Frameworks */ = {isa = PBXBuildFile; productRef = 0CA41BA11AE3954D104A7AB8 /* MeowIPC */; };
 		34B4F8F808C424CBAF8E7EA9 /* MWSharedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB83B7A37D165EF0E16A47BA /* MWSharedStore.m */; };
 		3BAE21D06E5B9935E58FDF1B /* MeowAPITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A693FE7115671D717A87F1DB /* MeowAPITypes.swift */; };
+		3F6E2D18C40A57B9D2E81067 /* AppIconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1C0B7E5D3F4682AE10C334 /* AppIconPickerView.swift */; };
 		43CC40E5E8E7DEEB9E61CEB8 /* ShadowsocksConfigBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2646E6E7241DEDBA8C6127C6 /* ShadowsocksConfigBuilder.swift */; };
 		45310440BCC0654BDE996BA2 /* SubscriptionParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0AD4D11A4D395987DD843B /* SubscriptionParserTests.swift */; };
 		458E58A53D18E7E14542FAB8 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4AC97B3877B1A566FBFF6 /* Profile.swift */; };
@@ -230,6 +231,7 @@
 		2646E6E7241DEDBA8C6127C6 /* ShadowsocksConfigBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsocksConfigBuilder.swift; sourceTree = "<group>"; };
 		2D7D7768D31382CD90DFEBA6 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		2E2B37B72F11B1B2B1118221 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		9A1C0B7E5D3F4682AE10C334 /* AppIconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconPickerView.swift; sourceTree = "<group>"; };
 		A11C0DE00001A2B3C4D5E601 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		A11C0DE00003A2B3C4D5E603 /* AppIconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconTests.swift; sourceTree = "<group>"; };
 		3172561A6CE70D61D7666597 /* ChinaDirectKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChinaDirectKeywords.swift; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				4B827CA25C7C1502C8AB3535 /* AddShadowsocksSheet.swift */,
+				9A1C0B7E5D3F4682AE10C334 /* AppIconPickerView.swift */,
 				8E8110225EBDEBDC762A0E20 /* ClashYAMLTextView.swift */,
 				8E6DE9E643D70646873B923B /* ConnectionsView.swift */,
 				AF51AD7DD7946AB70970C9A8 /* ContentView.swift */,
@@ -1207,6 +1210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09A565179DB1D6C03527E69 /* AddShadowsocksSheet.swift in Sources */,
+				3F6E2D18C40A57B9D2E81067 /* AppIconPickerView.swift in Sources */,
 				A11C0DE00002A2B3C4D5E602 /* AppIcon.swift in Sources */,
 				DCC6938C0A43984B033BCD68 /* AppIPCBridge.swift in Sources */,
 				ADBD29F9A34A3AF34057D104 /* AppModel.swift in Sources */,
@@ -1511,7 +1515,7 @@
 		60EF6A576B1E3B29BF844075 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIconLeap;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLeap AppIconSunset AppIconMidnight";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
@@ -1550,7 +1554,7 @@
 		8B572C192732B7DDA3D7F478 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIconLeap;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconLeap AppIconSunset AppIconMidnight";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;

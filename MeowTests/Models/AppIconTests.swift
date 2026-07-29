@@ -1,6 +1,7 @@
 import Foundation
 @testable import meow_ios
 import Testing
+import UIKit
 
 @Suite("AppIcon model")
 struct AppIconTests {
@@ -12,13 +13,15 @@ struct AppIconTests {
     @Test
     func `alternate icons pass their asset name to UIKit`() {
         #expect(AppIcon.leap.alternateIconName == "AppIconLeap")
+        #expect(AppIcon.sunset.alternateIconName == "AppIconSunset")
+        #expect(AppIcon.midnight.alternateIconName == "AppIconMidnight")
     }
 
     @Test
     func `every case round-trips through alternateIconName`() {
         // `UIApplication.alternateIconName` is the only persistence for the
-        // icon choice — the Settings picker restores its selection through
-        // this init, so the mapping must be lossless for every case.
+        // icon choice — the picker restores its selection through this init,
+        // so the mapping must be lossless for every case.
         for icon in AppIcon.allCases {
             #expect(AppIcon(alternateIconName: icon.alternateIconName) == icon)
         }
@@ -30,9 +33,11 @@ struct AppIconTests {
     }
 
     @Test
-    func `asset names and title keys are unique across cases`() {
-        #expect(Set(AppIcon.allCases.map(\.rawValue)).count == AppIcon.allCases.count)
-        #expect(Set(AppIcon.allCases.map(\.titleKey)).count == AppIcon.allCases.count)
+    func `asset names, preview names and title keys are unique across cases`() {
+        let cases = AppIcon.allCases
+        #expect(Set(cases.map(\.rawValue)).count == cases.count)
+        #expect(Set(cases.map(\.previewAssetName)).count == cases.count)
+        #expect(Set(cases.map(\.titleKey)).count == cases.count)
     }
 
     @Test
@@ -48,6 +53,37 @@ struct AppIconTests {
         let table = NSDictionary(contentsOfFile: path) as? [String: String] ?? [:]
         for icon in AppIcon.allCases {
             #expect(table[icon.titleKey] != nil, "missing en string for \(icon.titleKey)")
+        }
+    }
+
+    @MainActor
+    @Test
+    func `every case has a preview image in the asset catalogue`() {
+        // AppIconPickerView renders these; a missing imageset would leave a
+        // blank tile with no other symptom (SwiftUI's Image fails silently).
+        for icon in AppIcon.allCases {
+            #expect(
+                UIImage(named: icon.previewAssetName) != nil,
+                "missing \(icon.previewAssetName).imageset for \(icon.rawValue)",
+            )
+        }
+    }
+
+    @Test
+    func `every alternate icon is registered in the processed Info plist`() throws {
+        // actool copies ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES
+        // (project.yml) into CFBundleIcons → CFBundleAlternateIcons. Adding a
+        // case + .appiconset but forgetting the build setting compiles fine
+        // and then fails at runtime, when setAlternateIconName(_:) throws.
+        // The app is universal, so actool writes an iPad-suffixed variant too;
+        // which key is populated depends on the simulator the suite runs on.
+        let icons = try #require(
+            Bundle.main.object(forInfoDictionaryKey: "CFBundleIcons") as? [String: Any]
+                ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleIcons~ipad") as? [String: Any],
+        )
+        let alternates = try #require(icons["CFBundleAlternateIcons"] as? [String: Any])
+        for name in AppIcon.allCases.compactMap(\.alternateIconName) {
+            #expect(alternates[name] != nil, "\(name) is missing from CFBundleAlternateIcons")
         }
     }
 }

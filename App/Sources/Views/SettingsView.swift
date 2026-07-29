@@ -8,6 +8,9 @@ import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @State private var preferences: Preferences = .load(from: AppGroup.defaults)
+    /// Seeded from the live `UIApplication.alternateIconName` on appear and
+    /// written by `AppIconPickerView`, which owns applying the change. Kept
+    /// here so the Settings row shows the current icon's name.
     @State private var appIcon: AppIcon = .primary
     @State private var memoryMB: Int64?
     @State private var logExportDocument: LogExportDocument?
@@ -57,12 +60,14 @@ struct SettingsView: View {
                 // Hidden where the platform can't switch icons (e.g. iPad
                 // apps running on macOS report supportsAlternateIcons=false).
                 if UIApplication.shared.supportsAlternateIcons {
-                    Picker("settings.picker.appIcon", selection: $appIcon) {
-                        ForEach(AppIcon.allCases) { icon in
-                            Text(LocalizedStringKey(icon.titleKey)).tag(icon)
+                    NavigationLink {
+                        AppIconPickerView(selection: $appIcon)
+                    } label: {
+                        LabeledContent("settings.label.appIcon") {
+                            Text(LocalizedStringKey(appIcon.titleKey))
                         }
                     }
-                    .accessibilityIdentifier("settings.picker.appIcon")
+                    .accessibilityIdentifier("settings.nav.appIcon")
                     .accessibilityHint(Text("a11y.settings.appIcon.hint"))
                 }
             } header: {
@@ -152,9 +157,6 @@ struct SettingsView: View {
                 // app launch.
                 Task { await vpnManager.refresh() }
             }
-            .onChange(of: appIcon) { oldValue, newValue in
-                applyAppIcon(newValue, revertingTo: oldValue)
-            }
             .task {
                 appIcon = AppIcon(alternateIconName: UIApplication.shared.alternateIconName)
                 await pollMemory()
@@ -178,22 +180,6 @@ struct SettingsView: View {
 
     private func persist() {
         preferences.save(to: AppGroup.defaults)
-    }
-
-    /// Applies the picked Home Screen icon. The system persists the choice
-    /// (`UIApplication.alternateIconName`), so nothing is written to
-    /// `Preferences` — `.task` re-reads the live value on appear. If iOS
-    /// rejects the switch (e.g. Guided Access), the picker snaps back to the
-    /// icon actually installed.
-    private func applyAppIcon(_ icon: AppIcon, revertingTo previous: AppIcon) {
-        guard icon.alternateIconName != UIApplication.shared.alternateIconName else { return }
-        Task {
-            do {
-                try await UIApplication.shared.setAlternateIconName(icon.alternateIconName)
-            } catch {
-                appIcon = previous
-            }
-        }
     }
 
     private func pollMemory() async {

@@ -271,15 +271,24 @@
 "settings.logLevel.warning" = "警告";
 "settings.logLevel.error" = "错误";
 "settings.logLevel.silent" = "静默";
-"settings.picker.appIcon" = "应用图标";
+"settings.label.appIcon" = "应用图标";
 "settings.appIcon.primary" = "默认";
 "settings.appIcon.leap" = "跳跃";
+"settings.appIcon.sunset" = "晚霞";
+"settings.appIcon.midnight" = "月夜";
 "settings.section.diagnostics" = "诊断";
 "settings.label.diagnostics" = "诊断";
 "settings.label.exportLogs" = "导出日志";
 "settings.section.about" = "关于";
 "settings.about.version" = "版本";
 "settings.about.memory" = "内存";
+
+
+/* App Icon picker */
+"appIconPicker.nav.title" = "应用图标";
+"appIconPicker.error.failed" = "iOS 拒绝了本次图标切换。请退出引导式访问或检查设备管理描述文件后重试。";
+"appIconPicker.unsupported.title" = "无法使用备用图标";
+"appIconPicker.unsupported.description" = "此设备不支持切换应用图标。";
 
 
 /* User Diagnostics */
@@ -400,6 +409,10 @@
 "a11y.settings.exportLogs.hint" = "将最近一小时的应用日志保存为文件。";
 "a11y.settings.exportLogs.inProgress" = "正在导出";
 "a11y.settings.memory.unavailable" = "不可用";
+
+
+/* Accessibility — App Icon picker */
+"a11y.appIconPicker.option.hint" = "将此图案设为主屏幕图标。";
 
 
 /* Accessibility — Rules editor (structured list) */

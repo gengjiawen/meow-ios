@@ -79,7 +79,7 @@ targets:
         # Alternate Home Screen icons (Settings → App Icon). Each name is an
         # .appiconset in Assets.xcassets; actool injects the matching
         # CFBundleIcons entries into the processed Info.plist.
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: AppIconLeap
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: AppIconLeap AppIconSunset AppIconMidnight
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: YES

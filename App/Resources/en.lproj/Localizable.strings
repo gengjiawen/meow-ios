@@ -265,15 +265,24 @@
 "settings.logLevel.warning" = "Warning";
 "settings.logLevel.error" = "Error";
 "settings.logLevel.silent" = "Silent";
-"settings.picker.appIcon" = "App Icon";
+"settings.label.appIcon" = "App Icon";
 "settings.appIcon.primary" = "Default";
 "settings.appIcon.leap" = "Leap";
+"settings.appIcon.sunset" = "Sunset";
+"settings.appIcon.midnight" = "Midnight";
 "settings.section.diagnostics" = "Diagnostics";
 "settings.label.diagnostics" = "Diagnostics";
 "settings.label.exportLogs" = "Export Logs";
 "settings.section.about" = "About";
 "settings.about.version" = "Version";
 "settings.about.memory" = "Memory";
+
+
+/* App Icon picker */
+"appIconPicker.nav.title" = "App Icon";
+"appIconPicker.error.failed" = "iOS declined the icon change. Leave Guided Access or check your device management profile, then try again.";
+"appIconPicker.unsupported.title" = "Alternate icons unavailable";
+"appIconPicker.unsupported.description" = "This device can't switch the app icon.";
 
 
 /* User Diagnostics */
@@ -394,6 +403,10 @@
 "a11y.settings.exportLogs.hint" = "Saves the last hour of app logs to a file.";
 "a11y.settings.exportLogs.inProgress" = "Export in progress";
 "a11y.settings.memory.unavailable" = "Unavailable";
+
+
+/* Accessibility — App Icon picker */
+"a11y.appIconPicker.option.hint" = "Sets this artwork as the Home Screen icon.";
 
 
 /* Accessibility — Rules editor (structured list) */
