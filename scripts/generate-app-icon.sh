@@ -6,7 +6,7 @@
 # Destinations: App/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png
 #               App/Resources/Assets.xcassets/AppMark.imageset/AppMark.png
 #
-# Then derives the Settings → App Icon preview tiles: every
+# Then derives the Settings → App Icon preview thumbnails: every
 # <Name>.appiconset/<Name>.png in the catalogue gets a downscaled
 # <Name>Preview.imageset/<Name>Preview.png. AppIconPickerView renders those
 # because UIImage(named:) cannot load the primary icon from its .appiconset.
@@ -20,7 +20,7 @@ MARK_SRC="${APP_MARK_SOURCE:-"$ROOT/docs/appmark.png"}"
 ASSETS="$ROOT/App/Resources/Assets.xcassets"
 ICON_DST="$ASSETS/AppIcon.appiconset/AppIcon.png"
 MARK_DST="$ASSETS/AppMark.imageset/AppMark.png"
-# 256 px covers the 88 pt tile at @3x with headroom, at ~100 KB per icon.
+# 256 px covers the 72 pt picker row at @3x with headroom, ~100 KB per icon.
 PREVIEW_PX="${APP_ICON_PREVIEW_PX:-256}"
 
 render_icons() {

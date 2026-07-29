@@ -60,7 +60,7 @@ struct AppIconTests {
     @Test
     func `every case has a preview image in the asset catalogue`() {
         // AppIconPickerView renders these; a missing imageset would leave a
-        // blank tile with no other symptom (SwiftUI's Image fails silently).
+        // blank row with no other symptom (SwiftUI's Image fails silently).
         for icon in AppIcon.allCases {
             #expect(
                 UIImage(named: icon.previewAssetName) != nil,

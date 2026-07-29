@@ -3,14 +3,14 @@ import UIKit
 
 /// Settings → App Icon. Replaces the former inline `Picker`, which listed the
 /// icons by name only and gave no hint what any of them looked like, with a
-/// pushed page of artwork tiles.
+/// pushed list of the artwork itself — one icon per row, no captions.
 ///
-/// The tiles render `AppIcon.previewAssetName` imagesets rather than the
+/// The rows render `AppIcon.previewAssetName` imagesets rather than the
 /// `.appiconset` artwork directly: `UIImage(named:)` does not resolve the
 /// primary app icon by its asset name, so reading previews out of the icon
-/// sets would leave the default tile blank.
+/// sets would leave the default row blank.
 ///
-/// Selection applies the moment a tile is tapped, and the system — not
+/// Selection applies the moment a row is tapped, and the system — not
 /// `Preferences` — persists it in `UIApplication.alternateIconName`. When iOS
 /// declines the switch (Guided Access, a management profile), `selection`
 /// snaps back to the icon actually installed and a banner explains why.
@@ -18,17 +18,16 @@ struct AppIconPickerView: View {
     @Binding var selection: AppIcon
     @State private var failed = false
 
-    private let tileSize: CGFloat = 88
+    private let iconSize: CGFloat = 72
 
     var body: some View {
-        ScrollView {
+        Group {
             if UIApplication.shared.supportsAlternateIcons {
-                grid
+                iconList
             } else {
                 unsupported
             }
         }
-        .scrollBounceBehavior(.basedOnSize)
         .background(AppTheme.screenBackground)
         .safeAreaInset(edge: .top) {
             if failed {
@@ -43,18 +42,13 @@ struct AppIconPickerView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private var grid: some View {
-        LazyVGrid(
-            columns: [GridItem(.adaptive(minimum: tileSize + 24), spacing: 20)],
-            spacing: 20,
-        ) {
-            ForEach(AppIcon.allCases) { icon in
-                AppIconTile(icon: icon, size: tileSize, isSelected: icon == selection) {
-                    select(icon)
-                }
+    private var iconList: some View {
+        List(AppIcon.allCases) { icon in
+            AppIconRow(icon: icon, size: iconSize, isSelected: icon == selection) {
+                select(icon)
             }
         }
-        .padding(20)
+        .scrollContentBackground(.hidden)
     }
 
     private var unsupported: some View {
@@ -64,7 +58,6 @@ struct AppIconPickerView: View {
             description: Text("appIconPicker.unsupported.description"),
         )
         .accessibilityIdentifier("appIconPicker.emptyState")
-        .padding(.top, 40)
     }
 
     private func select(_ icon: AppIcon) {
@@ -85,9 +78,11 @@ struct AppIconPickerView: View {
     }
 }
 
-/// One artwork tile. The rounded-rect mask approximates the Home Screen
-/// squircle (iOS masks app icons at ~22% of their width).
-private struct AppIconTile: View {
+/// One artwork row. Nothing is written out — the icon's name reaches VoiceOver
+/// through `.accessibilityLabel`, since there is no visible label to read.
+/// The rounded-rect mask approximates the Home Screen squircle (iOS masks app
+/// icons at ~22% of their width).
+private struct AppIconRow: View {
     let icon: AppIcon
     let size: CGFloat
     let isSelected: Bool
@@ -99,13 +94,19 @@ private struct AppIconTile: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
+            HStack {
                 artwork
-                Text(LocalizedStringKey(icon.titleKey))
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(isSelected ? AppTheme.accent : Color.primary)
+                Spacer()
+                if isSelected {
+                    // Shape companion to the accent-colored ring, so the
+                    // selected row reads without relying on color alone.
+                    Image(systemName: "checkmark")
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(AppTheme.accent)
+                        .accessibilityHidden(true)
+                }
             }
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text(LocalizedStringKey(icon.titleKey)))
@@ -127,17 +128,7 @@ private struct AppIconTile: View {
                         lineWidth: isSelected ? 3 : 1,
                     )
             }
-            .overlay(alignment: .bottomTrailing) {
-                if isSelected {
-                    // Shape companion to the accent-colored ring, so the
-                    // selected tile reads without relying on color alone.
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.title3)
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.white, AppTheme.accent)
-                        .padding(4)
-                }
-            }
+            .padding(.vertical, 4)
             .accessibilityHidden(true)
     }
 }
