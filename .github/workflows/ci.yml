@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    # Prototype only: run on the fork's proto/** branches without a PR.
+    branches: [main, "proto/**"]
   pull_request:
     branches: [main]
 
