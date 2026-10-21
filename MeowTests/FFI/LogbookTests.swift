@@ -9,8 +9,10 @@ extension MeowCoreBridgeTests {
     @Test
     func `an engine run is recorded in the logbook and reads back`() async throws {
         let base = URL(filePath: NSTemporaryDirectory()).appending(path: "meow-logbook-\(UUID().uuidString)")
+        // Left in the simulator's tmp: the logbook stays open in this process
+        // after the stop, as in the PacketTunnel until it exits, and SQLite
+        // flags a database removed while in use.
         try FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
-        defer { try? FileManager.default.removeItem(at: base) }
         let config = base.appending(path: "config.yaml")
         try """
         mixed-port: 57892
