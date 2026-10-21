@@ -1976,6 +1976,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow;
 				SDKROOT = appletvos;
@@ -2030,6 +2031,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow;
 				SDKROOT = appletvos;
@@ -2127,6 +2129,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow.PacketTunnel;
 				SDKROOT = appletvos;
@@ -2293,6 +2296,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow;
 				SDKROOT = iphoneos;
@@ -2332,6 +2336,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow;
 				SDKROOT = iphoneos;
@@ -2367,6 +2372,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow.PacketTunnel;
 				SDKROOT = iphoneos;
@@ -2438,6 +2444,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow.PacketTunnel;
 				SDKROOT = iphoneos;
@@ -2470,6 +2477,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangzixiang.meow.PacketTunnel;
 				SDKROOT = appletvos;
